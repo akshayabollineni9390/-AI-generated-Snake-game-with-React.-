@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #050505;
+  --color-panel: #111111;
+  --color-accent-green: #00ff41;
+  --color-accent-pink: #ff007f;
+  --color-accent-blue: #00d4ff;
+  --color-border: #222222;
+  --color-text-main: #ffffff;
+  --color-text-dim: #666666;
+}
+
+:root {
+  --bg: #050505;
+  --panel: #111111;
+  --accent-green: #00ff41;
+  --accent-pink: #ff007f;
+  --accent-blue: #00d4ff;
+  --border: #222222;
+  --text: #ffffff;
+  --text-dim: #666666;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text);
+}
+
+.bento-container {
+  width: 100%;
+  max-width: 960px;
+  height: 700px;
+  display: grid;
+  grid-template-columns: 280px 1fr 240px;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  grid-template-areas: 
+      "header header header"
+      "playlist game stats"
+      "player game player-ctrl";
+}
+
+@media (max-width: 1024px) {
+  .bento-container {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "header"
+        "game"
+        "stats"
+        "playlist"
+        "player"
+        "player-ctrl";
+  }
+}
+
+.bento-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Area */
+.bento-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background: transparent;
+  padding: 0 10px;
+}
+
+.bento-logo {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.bento-logo span {
+  color: var(--accent-green);
+  text-shadow: 0 0 10px var(--accent-green);
+}
+
+/* Snake Game Area */
+.bento-game-area {
+  grid-area: game;
+  position: relative;
+  background: #000;
+  border: 2px solid var(--accent-green);
+  box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bento-snake-grid {
+  width: 400px;
+  height: 400px;
+  background-image: 
+      linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px), 
+      linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+}
+
+.bento-snake-segment {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+  border-radius: 2px;
+}
+
+.bento-food {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--accent-pink);
+  box-shadow: 0 0 12px var(--accent-pink);
+  border-radius: 50%;
+}
+
+/* Playlist Area */
+.bento-playlist {
+  grid-area: playlist;
+}
+
+.bento-section-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-bottom: 15px;
+}
+
+.bento-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.bento-track-item.active {
+  background: rgba(0, 212, 255, 0.1);
+  border-left: 3px solid var(--accent-blue);
+}
+
+.bento-track-thumb {
+  width: 32px;
+  height: 32px;
+  background: #222;
+  border-radius: 4px;
+}
+
+.bento-track-info .title {
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+}
+
+.bento-track-info .artist {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* Stats Area */
+.bento-stats {
+  grid-area: stats;
+  justify-content: space-around;
+}
+
+.bento-stat-block {
+  text-align: center;
+}
+
+.bento-stat-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--accent-green);
+}
+
+.bento-stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Music Player Area */
+.bento-player {
+  grid-area: player;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.bento-album-art {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, #333, #111);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.bento-now-playing-info {
+  flex: 1;
+}
+
+.bento-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: #222;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.bento-progress-fill {
+  width: 45%;
+  height: 100%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 5px var(--accent-blue);
+}
+
+/* Controls Area */
+.bento-player-ctrl {
+  grid-area: player-ctrl;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bento-ctrl-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.bento-play-pause {
+  width: 40px;
+  height: 40px;
+  background: var(--text);
+  color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bento-system-status {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-family: monospace;
+  font-size: 9px;
+  color: var(--accent-green);
+  opacity: 0.5;
+}
